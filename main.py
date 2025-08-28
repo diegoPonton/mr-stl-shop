@@ -5,6 +5,10 @@ from email.message import EmailMessage
 import json
 import os
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
+
+# Cargar variables de entorno desde .env o entorno Railway
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = "clave_secreta_segura"
@@ -107,9 +111,13 @@ def hacer_pedido():
     msg["From"] = "ymaster675@gmail.com"
     msg["To"] = "mr.stl3d@gmail.com"
 
+    # Obtener credenciales SMTP desde variables de entorno
+    smtp_user = os.getenv("SMTP_USER")
+    smtp_pass = os.getenv("SMTP_PASS")
+
     try:
         with smtplib.SMTP_SSL("smtp-relay.brevo.com", 465) as smtp:
-            smtp.login("921e1d001@smtp-brevo.com", "nPQmTOCKbxM0AURF")
+            smtp.login(smtp_user, smtp_pass)
             smtp.send_message(msg)
     except Exception as e:
         print("❌ Error al enviar correo:", e)
@@ -124,7 +132,7 @@ def login():
         usuario = request.form.get("username")
         clave = request.form.get("password")
         if usuario == USUARIO_ADMIN and clave == CLAVE_ADMIN:
-            session["admin"] = True  # Activamos sesión admin
+            session["admin"] = True
             return redirect(url_for("admin_panel"))
         else:
             return render_template("login.html", error="Credenciales incorrectas")
@@ -158,7 +166,6 @@ def admin_panel():
         conexion.commit()
         conexion.close()
 
-    # Cargar productos existentes
     conexion = sqlite3.connect("data/productos.db")
     conexion.row_factory = sqlite3.Row
     cursor = conexion.cursor()
@@ -208,7 +215,6 @@ def editar_producto(id):
         conexion.close()
         return redirect(url_for("admin_panel"))
 
-    # GET: mostrar el formulario con datos actuales
     cursor.execute("SELECT * FROM productos WHERE id = ?", (id,))
     producto = cursor.fetchone()
     conexion.close()
@@ -225,8 +231,6 @@ def editar_producto(id):
         return render_template("editar_producto.html", producto=producto_dict)
     else:
         return "Producto no encontrado", 404
-    
-
 
 @app.route("/eliminar_producto/<int:id>", methods=["POST"])
 def eliminar_producto(id):
@@ -235,8 +239,6 @@ def eliminar_producto(id):
 
     conexion = sqlite3.connect("data/productos.db")
     cursor = conexion.cursor()
-
-    # Obtener nombre de la imagen para eliminarla también
     cursor.execute("SELECT imagen FROM productos WHERE id = ?", (id,))
     resultado = cursor.fetchone()
     if resultado and resultado[0]:
@@ -244,7 +246,6 @@ def eliminar_producto(id):
         if os.path.exists(ruta_imagen):
             os.remove(ruta_imagen)
 
-    # Eliminar producto
     cursor.execute("DELETE FROM productos WHERE id = ?", (id,))
     conexion.commit()
     conexion.close()
@@ -254,4 +255,5 @@ def eliminar_producto(id):
 # ---------------------------------------------------
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000, debug=False)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
