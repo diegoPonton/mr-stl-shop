@@ -62,6 +62,8 @@ def carrito():
 def contacto():
     return render_template("contact.html")
 
+import requests  # Asegúrate de tener esto arriba con tus imports
+
 @app.route("/hacer-pedido", methods=["POST"])
 def hacer_pedido():
     nombre = request.form["nombre"]
@@ -105,24 +107,34 @@ def hacer_pedido():
 {resumen_pedido}
 """
 
-    msg = EmailMessage()
-    msg.set_content(mensaje)
-    msg["Subject"] = "📬 Nuevo pedido desde Mr STL"
-    msg["From"] = os.getenv("EMAIL_FROM")
-    msg["To"] = os.getenv("EMAIL_TO")
+    # Enviar correo vía Brevo API
+    api_key = os.getenv("BREVO_API_KEY")
+    email_from = os.getenv("EMAIL_FROM")
+    email_to = os.getenv("EMAIL_TO")
 
-    smtp_user = os.getenv("BREVO_USER")
-    smtp_pass = os.getenv("BREVO_PASS")
+    payload = {
+        "sender": {"name": "Mr STL", "email": email_from},
+        "to": [{"email": email_to, "name": "Mr STL Admin"}],
+        "subject": "📬 Nuevo pedido desde Mr STL",
+        "textContent": mensaje
+    }
+
+    headers = {
+        "accept": "application/json",
+        "api-key": api_key,
+        "content-type": "application/json"
+    }
 
     try:
-        with smtplib.SMTP_SSL("smtp-relay.brevo.com", 465) as smtp:
-            smtp.login(smtp_user, smtp_pass)
-            smtp.send_message(msg)
+        response = requests.post("https://api.brevo.com/v3/smtp/email", json=payload, headers=headers)
+        if response.status_code >= 200 and response.status_code < 300:
+            return render_template("pedido_exito.html")
+        else:
+            print("❌ Error al enviar email:", response.text)
+            return "Hubo un error al enviar el pedido. Intenta más tarde."
     except Exception as e:
-        print("❌ Error al enviar correo:", e)
+        print("❌ Excepción al enviar email:", e)
         return "Hubo un error al enviar el pedido. Intenta más tarde."
-
-    return render_template("pedido_exito.html")
 
 # ------------------- PANEL ADMIN -------------------
 @app.route("/login", methods=["GET", "POST"])
