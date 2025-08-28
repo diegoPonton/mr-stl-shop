@@ -1,0 +1,132 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #d32f2f;
+}
+
+.admin-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.admin-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.formulario-producto label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+.formulario-producto input[type="text"],
+.formulario-producto input[type="number"],
+.formulario-producto input[type="file"],
+.formulario-producto textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.crear-btn {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background-color: #ffcc00;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.crear-btn:hover {
+    background-color: #ffb800;
+}
+
+.tabla-productos {
+    max-width: 95%;
+    margin: 60px auto 100px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tabla-productos h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.4rem;
+    color: #222;
+}
+
+.tabla-productos table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla-productos th {
+    background-color: #f9f9f9;
+    font-weight: 600;
+    color: #333;
+}
+
+.tabla-productos tr:hover {
+    background-color: #f1f1f1;
+}
+
+.eliminar-btn {
+    background-color: #e74c3c;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.eliminar-btn:hover {
+    background-color: #c0392b;
+}
+
+img {
+    max-height: 60px;
+    border-radius: 5px;
+}

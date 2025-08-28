@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito de compras - Mr STL</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+</head>
+<body>
+
+  <section id="header">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" style="width: 100px;">
+    <ul id="navbar">
+      <li><a href="/">Home</a></li>
+      <li><a href="{{ url_for('productos') }}">Nuestros productos!</a></li>
+      <li><a class="active" href="{{ url_for('carrito') }}">Carrito</a></li>
+    </ul>
+  </section>
+
+  <main>
+    <h1>🛒 Tu carrito</h1>
+    <div id="carrito-container">
+      <!-- Productos del carrito se cargarán aquí -->
+    </div>
+    <h2 id="total">Total: $0</h2>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+</body>
+</html>

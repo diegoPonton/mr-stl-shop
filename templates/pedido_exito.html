@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido exitoso</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .mensaje-exito {
+            background-color: #ffffff;
+            border: 2px solid #4CAF50;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: aparecer 0.6s ease-out;
+        }
+
+        .mensaje-exito h1 {
+            color: #4CAF50;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .mensaje-exito p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+    <script>
+        setTimeout(function () {
+            window.location.href = "/";
+        }, 3000); // redirige después de 3 segundos
+    </script>
+</head>
+<body>
+    <div class="mensaje-exito">
+        <h1>✅ ¡Pedido realizado con éxito!</h1>
+        <p>Serás redirigido a la página principal...</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos - Mr STL</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/productos.css') }}">
+</head>
+<body>
+
+<!-- HEADER copiado del home -->
+<section id="header">
+  <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" style="width: 100px;">
+  <div id="mobile">
+    <i id="bar" class="fas fa-bars"></i>
+  </div>
+  <ul id="navbar">
+    <li><a href="/">Home</a></li>
+    <li><a class="active" href="{{ url_for('productos') }}">Nuestros productos!</a></li>
+    <li><a href="/contact.html">Contacta con Mr Stl</a></li>
+    <li><li><a href="{{ url_for('carrito') }}"><i class="fa-solid fa-cart-shopping"></i></a></li></li>
+  </ul>
+</section>
+
+<!-- SELECTOR -->
+<form method="GET" action="/productos" class="filtro-categorias">
+    <label for="categoria">🔍 Filtrar por categoría:</label>
+    <select name="categoria" id="categoria" onchange="this.form.submit()">
+        <option value="">Todas</option>
+        {% for cat in categorias %}
+            <option value="{{ cat }}" {% if cat == categoria %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+
+<!-- PRODUCTOS -->
+<section id="product1" class="section-p1">
+  <h2>🎯 Todos los productos de <span class="yellow">Mr STL</span></h2>
+  <p class="intro">Llaveros, figuras y modelos listos para imprimir en 3D.</p>
+
+  <div class="pro-container">
+    {% for producto in productos %}
+    <div class="pro">
+      <img src="{{ url_for('static', filename='img/' ~ producto.imagen) }}" alt="{{ producto.nombre }}">
+      <div class="descreption">
+        <h5>{{ producto.nombre }}</h5>
+        <p>{{ producto.descripcion }}</p>
+        <h4>${{ producto.precio }}</h4>
+        <button class="btn-carrito" onclick='agregarAlCarrito({{ producto|tojson }})'>
+  Agregar al carrito
+</button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- FOOTER igual al home -->
+<footer id="footer">
+  <div class="footer-container">
+    <div class="footer-col">
+      <h2 class="logo">Mr STL</h2>
+      <h4>Contacto</h4>
+      <p><strong>Dirección:</strong> Av. Principal 123, Quito, Ecuador</p>
+      <p><strong>Teléfono:</strong> +593 987 654 321</p>
+      <p><strong>Horario:</strong> 09:00 - 18:00, Lun - Sáb</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Sobre Nosotros</h4>
+      <a href="#">Quiénes somos</a>
+      <a href="#">Envíos</a>
+      <a href="#">Política de privacidad</a>
+      <a href="#">Términos y condiciones</a>
+      <a href="#">Contáctanos</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Mr STL - Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/carrito.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cart.js') }}"></script> <!-- <== Este es el nuevo -->
+</body>
+</html>

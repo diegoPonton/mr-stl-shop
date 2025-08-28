@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de administrador | Mr STL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <a href="{{ url_for('logout') }}" class="logout-btn">🔒 Cerrar sesión</a>
+    <div class="admin-container">
+        <h1>🛠️ Panel de administrador</h1>
+        <form method="POST" action="{{ url_for('admin_panel') }}" enctype="multipart/form-data" class="formulario-producto">
+            <label for="nombre">Nombre del producto:</label>
+            <input type="text" name="nombre" required>
+
+            <label for="descripcion">Descripción:</label>
+            <textarea name="descripcion" rows="3" required></textarea>
+
+            <label for="precio">Precio ($):</label>
+            <input type="number" name="precio" step="0.01" required>
+
+            <label for="categoria">Categoría:</label>
+            <input type="text" name="categoria" required>
+
+            <label for="imagen">Imagen del producto:</label>
+            <input type="file" name="imagen" accept="image/*" required>
+
+            <button type="submit" class="crear-btn">Crear producto</button>
+        </form>
+    </div>
+
+    <div class="tabla-productos">
+        <h2>📦 Productos existentes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio ($)</th>
+                    <th>Categoría</th>
+                    <th>Imagen</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto['nombre'] }}</td>
+                    <td>{{ producto['descripcion'] }}</td>
+                    <td>{{ producto['precio'] }}</td>
+                    <td>{{ producto['categoria'] }}</td>
+                    <td>
+                        {% if producto['imagen'] %}
+                            <img src="{{ url_for('static', filename='IMG/' ~ producto['imagen']) }}" alt="Imagen" width="60">
+                        {% else %}
+                            Sin imagen
+                        {% endif %}
+                    </td>
+                    <td>
+                         <a href="{{ url_for('editar_producto', id=producto['id']) }}" class="editar-btn">✏️</a>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('eliminar_producto', id=producto['id']) }}">
+                            <button type="submit" class="eliminar-btn" onclick="return confirm('¿Estás seguro de eliminar este producto?')">🗑️</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

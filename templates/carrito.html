@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de compras | Mr STL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="{{ url_for('static', filename='js/carrito.js') }}" defer></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <section id="header">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" style="width: 100px;">
+        <div id="mobile">
+            <i id="bar" class="fas fa-bars"></i>
+        </div>
+        <ul id="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a class="active" href="{{ url_for('productos') }}">Nuestros productos!</a></li>
+            <li><a href="/contact.html">Contacta con Mr Stl</a></li>
+            <li><a href="{{ url_for('carrito') }}"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        </ul>
+    </section>
+
+    <!-- Carrito y formulario -->
+    <main class="carrito-container">
+        
+        <!-- Carrito -->
+        <div class="carrito-box">
+            <h1>🛒 Carrito de compras</h1>
+            <table class="carrito-tabla">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="carrito-body">
+                    <!-- JS llenará esto -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formulario -->
+        <div class="formulario-container">
+            <h2>📋 Detalles del pedido</h2>
+            <form id="formulario-pedido" method="POST" action="{{ url_for('hacer_pedido') }}">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="comentario">Comentario (opcional):</label>
+                    <textarea id="comentario" name="comentario" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="envio">¿Desea envío a domicilio?</label>
+                    <select id="envio" name="envio">
+                        <option value="si">Sí (Se agregará un cargo de $6)</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="direccion-envio-container" style="display: none;">
+                    <label for="direccion">Dirección de envío:</label>
+                    <textarea id="direccion" name="direccion" rows="3" placeholder="Calle, número, ciudad..."></textarea>
+                </div>
+
+                <div class="form-group total-pagar">
+                    <strong>Total: <span id="total-pagar">$0.00</span></strong>
+                </div>
+
+                <input type="hidden" name="pedido" id="pedido-json">
+                <button type="submit" class="btn-pedido">Hacer pedido</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Mostrar/ocultar campo de dirección si se selecciona "sí" -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const envioSelect = document.getElementById("envio");
+            const direccionContainer = document.getElementById("direccion-envio-container");
+            const direccionTextarea = document.getElementById("direccion");
+
+            function toggleDireccion() {
+                if (envioSelect.value === "si") {
+                    direccionContainer.style.display = "block";
+                    direccionTextarea.setAttribute("required", "required");
+                } else {
+                    direccionContainer.style.display = "none";
+                    direccionTextarea.removeAttribute("required");
+                }
+            }
+
+            envioSelect.addEventListener("change", toggleDireccion);
+            toggleDireccion(); // aplicar al cargar por si ya está en "sí"
+        });
+    </script>
+</body>
+</html>

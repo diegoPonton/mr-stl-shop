@@ -1,0 +1,71 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f6f6f6;
+    margin: 0;
+    padding: 0;
+}
+
+.edit-container {
+    max-width: 500px;
+    margin: 60px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+}
+
+.edit-container h1 {
+    text-align: center;
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.edit-container h1::before {
+    content: "✏️ ";
+}
+
+.edit-container label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #444;
+}
+
+.edit-container input[type="text"],
+.edit-container input[type="number"],
+.edit-container textarea,
+.edit-container input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.edit-container img {
+    margin-top: 10px;
+    max-width: 100px;
+    height: auto;
+    display: block;
+}
+
+.edit-container button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-container button:hover {
+    background-color: #e0a800;
+}

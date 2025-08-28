@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "nombre": "Llavero Pikachu",
+    "precio": 5.99,
+    "imagen": "pikachu.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Figura Goku",
+    "precio": 12.50,
+    "imagen": "goku.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Llaveros personalizados",
+    "precio": 4.99,
+    "imagen": "llavero_personalizado.jpg"
+  }
+]

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar producto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/editar.css') }}">
+</head>
+<body>
+    <div class="edit-container">
+        <h1>✏️ Editar producto</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" value="{{ producto.nombre }}" required>
+
+            <label>Descripción:</label>
+            <textarea name="descripcion" required>{{ producto.descripcion }}</textarea>
+
+            <label>Precio ($):</label>
+            <input type="number" step="0.01" name="precio" value="{{ producto.precio }}" required>
+
+            <label>Categoría:</label>
+            <input type="text" name="categoria" value="{{ producto.categoria }}" required>
+
+            <label>Imagen actual:</label><br>
+            {% if producto.imagen %}
+                <img src="{{ url_for('static', filename='IMG/' ~ producto.imagen) }}" width="100"><br>
+            {% else %}
+                No hay imagen
+            {% endif %}
+
+            <label>Nueva imagen (opcional):</label>
+            <input type="file" name="imagen" accept="image/*">
+
+            <button type="submit" class="crear-btn">Guardar cambios</button>
+        </form>
+    </div>
+</body>
+</html>
