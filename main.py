@@ -108,12 +108,11 @@ def hacer_pedido():
     msg = EmailMessage()
     msg.set_content(mensaje)
     msg["Subject"] = "📬 Nuevo pedido desde Mr STL"
-    msg["From"] = "ymaster675@gmail.com"
-    msg["To"] = "mr.stl3d@gmail.com"
+    msg["From"] = os.getenv("EMAIL_FROM")
+    msg["To"] = os.getenv("EMAIL_TO")
 
-    # Obtener credenciales SMTP desde variables de entorno
-    smtp_user = os.getenv("SMTP_USER")
-    smtp_pass = os.getenv("SMTP_PASS")
+    smtp_user = os.getenv("BREVO_USER")
+    smtp_pass = os.getenv("BREVO_PASS")
 
     try:
         with smtplib.SMTP_SSL("smtp-relay.brevo.com", 465) as smtp:
