@@ -18,7 +18,7 @@ USUARIO_ADMIN = "admin"
 CLAVE_ADMIN = "1234"
 
 # Carpeta donde se guardan las imágenes
-UPLOAD_FOLDER = "static/IMG"
+UPLOAD_FOLDER = "static/img"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 @app.route("/")
