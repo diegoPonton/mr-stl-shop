@@ -89,6 +89,18 @@
 
     <!-- Mostrar/ocultar campo de dirección si se selecciona "sí" -->
     <script>
+
+
+            const bar = document.getElementById('bar');
+            const navbar = document.getElementById('navbar');
+
+            if (bar) {
+            bar.addEventListener('click', () => {
+                navbar.classList.toggle('active');
+            });
+            }
+
+
         document.addEventListener("DOMContentLoaded", () => {
             const envioSelect = document.getElementById("envio");
             const direccionContainer = document.getElementById("direccion-envio-container");
