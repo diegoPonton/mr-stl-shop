@@ -52,7 +52,7 @@
                     <td>{{ producto['categoria'] }}</td>
                     <td>
                         {% if producto['imagen'] %}
-                            <img src="{{ url_for('static', filename='IMG/' ~ producto['imagen']) }}" alt="Imagen" width="60">
+                            <img src="{{ url_for('static', filename='img/' ~ producto['imagen']) }}" alt="Imagen" width="60">
                         {% else %}
                             Sin imagen
                         {% endif %}
