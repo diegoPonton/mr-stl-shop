@@ -384,9 +384,9 @@ a {
     margin: 0 auto;
   }
 
+  /* 🔥 Ocultar imagen del hero en modo celular */
   #hero img {
-    margin-top: 20px;
-    max-width: 100%;
+    display: none !important;
   }
 }
 
