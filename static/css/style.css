@@ -459,3 +459,17 @@ a {
     margin: 10px 0;
   }
 }
+
+
+/* Evitar scroll horizontal en móvil */
+@media (max-width: 768px) {
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Opcional: reducir padding general para que nada se salga */
+  .section-p1 {
+    padding: 20px 15px;
+  }
+}
